@@ -1,0 +1,24 @@
+<div>
+  <h1>{{title}}</h1>
+  <div>
+  <p>{{user.firstName}}: ...</p>
+  </div>
+  <div>
+  <label>First Name:</label>
+  <input type="text" name="name" [disabled]="loading" #name/> <br>
+  <label>Last Name:</label>
+  <input type="text" name="lastName" [disabled]="loading" #lastName/> <br>
+  <input type="button" value="Save" [disabled]="loading" (click)="saveProfile()"/>
+  </div>
+  <p *ngIf="loading">Loading profile...</p>
+  <p *ngIf="!loading">Saving profile...</p>
+  <p *ngIf="error">Error! {{this.errorMessage}}</p>
+ </div>
+
+<!--
+ <label>Last Name:</label>
+ <input type="text" [disabled]="loading"/> <br>
+ <label>Username Name:</label>
+ <input type="text" [disabled]="loading"/> <br>
+ <label>Age Name:</label> <br>
+ <input type="text" [disabled]="loading"/> -->
