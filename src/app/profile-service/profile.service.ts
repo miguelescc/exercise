@@ -43,12 +43,12 @@ export class ProfileService {
     setTimeout(() => {
     if (Math.round(Math.random())) {
     this.user.firstName = firstName;
-    resolve(this.user);
+    resolve(this.user)
     } else {
     reject({ error: 'Invalid name' });
     }
     }, Math.random() * 5000);
-    });
+    })
    }
 
 }

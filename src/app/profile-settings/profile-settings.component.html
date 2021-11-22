@@ -3,16 +3,19 @@
   <div>
   <p>{{user.firstName}}: ...</p>
   </div>
-  <div>
-  <label>First Name:</label>
-  <input type="text" name="name" [disabled]="loading" #name/> <br>
-  <label>Last Name:</label>
-  <input type="text" name="lastName" [disabled]="loading" #lastName/> <br>
-  <input type="button" value="Save" [disabled]="loading" (click)="saveProfile()"/>
-  </div>
-  <p *ngIf="loading">Loading profile...</p>
-  <p *ngIf="!loading">Saving profile...</p>
-  <p *ngIf="error">Error! {{this.errorMessage}}</p>
+
+  <form autocomplete="off" [formGroup]="Form" (ngSubmit)="saveProfile()">
+    <div class="form-group row" formGroupName="user">
+      <label>First Name:</label>
+      <input type="text" name="user.firstName" [disabled]="loading" [(ngModel)]="user.firstName"/> <br>
+      <label>Last Name:</label>
+      <input type="text" name="lastName" [disabled]="loading" #lastName/> <br>
+      <input type="submit" value="Save" [disabled]="loading"/>
+    </div>
+    <p *ngIf="loading">Loading profile...</p>
+    <p *ngIf="!loading">Saving profile...</p>
+    <p *ngIf="error">Error! {{this.errorMessage}}</p>
+  </form>
  </div>
 
 <!--
