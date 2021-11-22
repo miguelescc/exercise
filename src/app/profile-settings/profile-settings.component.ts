@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {IProfile, ProfileService} from '../profile-service/profile.service';
-import {FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-profile-settings',
   templateUrl: './profile-settings.component.html',
@@ -9,7 +8,7 @@ import {FormBuilder, FormGroup } from '@angular/forms';
 export class ProfileSettingsComponent implements OnInit {
   public title = 'Profile';
 
-  Form:FormGroup;
+
   loading=false;
   error=false;
   errorMessage='';
@@ -21,13 +20,7 @@ export class ProfileSettingsComponent implements OnInit {
   age:0
   };
 
-  constructor(private profile: ProfileService,private fb: FormBuilder) {
-    this.Form=this.fb.group({
-      firstName:[''],
-      lastName:[''],
-      username:[''],
-      age:[0]
-    })
+  constructor(private profile: ProfileService) {
   }
 
   ngOnInit() {}
@@ -35,8 +28,9 @@ export class ProfileSettingsComponent implements OnInit {
 
   async saveProfile() {
     this.loading=true;
-    //const {a,b}= await this.profile.setName('asd').then(resp=>resp.map);
 
+    console.log(this.user.firstName);
+    //const {a,b}= await this.profile.setName('asd').then(resp=>resp.map);
     await this.profile.setName('asd')
     .then(resp=> {
         this.error=false;
