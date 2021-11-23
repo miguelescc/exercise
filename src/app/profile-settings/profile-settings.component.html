@@ -7,9 +7,13 @@
   <form autocomplete="off" [formGroup]="forma" (submit)="saveProfile()">
     <div>
       <label>First Name:</label>
-      <input type="text" formControlName="firstName" [class.is-invalid]="invalidName"/> <br>
+      <input type="text" formControlName="firstName" [class.is-invalid]="invalidName"/><small *ngIf="invalidName" >
+        Enter at least 1 letter
+       </small> <br>
       <label>Last Name:</label>
-      <input type="text" formControlName="lastName" [class.is-invalid]="invalidLastName"/> <br>
+      <input type="text" formControlName="lastName" [class.is-invalid]="invalidLastName"/> <small *ngIf="invalidLastName" >
+        Enter at least 1 letter
+       </small><br>
       <button type="submit"  [disabled]="loading">Save</button>
     </div>
     <p *ngIf="loading">Loading profile...</p>

@@ -39,6 +39,7 @@ export class ProfileSettingsComponent implements OnInit {
 
 
   async saveProfile() {
+    if(this.forma.valid ){
     this.loading=true;
     this.user.firstName=this.forma.value.firstName;
     this.user.lastName=this.forma.value.lastName;
@@ -76,7 +77,6 @@ export class ProfileSettingsComponent implements OnInit {
 
       //si es nulo osea si salio error al otro lado (falta borrar el user) entoncesno se hace esto
       this.user.email= this.user.firstName+'.'+this.user.lastName+'@blueface.com';
-      console.log("error: "+this.error);
       if(!this.error){
       await this.profile.setUserEmail(this.user.email)
       .then((resp:any)=> {
@@ -96,7 +96,7 @@ export class ProfileSettingsComponent implements OnInit {
       console.log(this.user);
 
 
-
+    }
   }
 
 
