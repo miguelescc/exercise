@@ -1,21 +1,22 @@
 <div>
   <h1>{{title}}</h1>
   <div>
-  <p>{{user.firstName}}: ...</p>
+  <p>User: <small>{{user.firstName}}</small></p>
   </div>
 
-
+  <form autocomplete="off" [formGroup]="forma" (submit)="saveProfile()">
     <div>
       <label>First Name:</label>
-      <input type="text" name="firstName" [disabled]="loading" ngModel="firstName"/> <br>
+      <input type="text" formControlName="firstName" [class.is-invalid]="invalidName"/> <br>
       <label>Last Name:</label>
-      <input type="text" name="lastName" [disabled]="loading"/> <br>
-      <input type="button" value="Save" [disabled]="loading" (click)="saveProfile()"/>
+      <input type="text" formControlName="lastName" [class.is-invalid]="invalidLastName"/> <br>
+      <button type="submit"  [disabled]="loading">Save</button>
     </div>
     <p *ngIf="loading">Loading profile...</p>
     <p *ngIf="!loading">Saving profile...</p>
     <p *ngIf="error">Error! {{this.errorMessage}}</p>
-
+    <p *ngIf="emailError">! {{this.emailErrorMessage}}</p>
+  </form>
  </div>
 
 
