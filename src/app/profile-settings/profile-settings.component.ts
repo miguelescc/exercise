@@ -14,7 +14,8 @@ export class ProfileSettingsComponent implements OnInit {
   error=false;
   errorMessage='';
   emailError=false;
-  emailErrorMessage='';
+  emailMessage='';
+  opt:string='';
 
   public user: IProfile={
   firstName : '',
@@ -47,59 +48,51 @@ export class ProfileSettingsComponent implements OnInit {
     this.forma.controls['lastName'].disable();
 
 
+
     await this.profile.setName(this.user.firstName,this.user.lastName)
     .then((resp:any)=> {
         this.error=false;
         this.errorMessage='';
-        //console.log(resp);
-        //console.log(this.user);
-        // Object.entries(resp).forEach(([key, value]) => {//for saving the values into the user
-        //   console.log(key + ' ' + value);
-        //   this.user.firstName=value as string;
-        //   this.user.lastName=value as string;
-        //   this.user.username=value as string;
-        //   this.user.email=value as string;
-        //   this.user.age=value as number;
-        // })
       })
       .catch(resp=>{
         console.warn(resp.error)
         this.error=true;
+        this.emailMessage='';
         this.errorMessage=resp.error;
       });
 
-      this.loading=false;
-      this.forma.controls['firstName'].enable();
-      this.forma.controls['lastName'].enable();
+
       this.user.firstName = this.user.firstName.replace(/\s/g, "").toLowerCase();
       this.user.lastName = this.user.lastName.replace(/\s/g, "").toLowerCase();
 
 
-      //si es nulo osea si salio error al otro lado (falta borrar el user) entoncesno se hace esto
       this.user.email= this.user.firstName+'.'+this.user.lastName+'@blueface.com';
       if(!this.error){
       await this.profile.setUserEmail(this.user.email)
-      .then((resp:any)=> {
-        this.emailErrorMessage='';
-        this.emailError=false;
-        //console.log(resp)
-      })
-      .catch(resp=>{
-        console.warn(resp.error)
-        this.user.firstName='';
-        this.user.lastName='';
-        this.forma.reset();
-        this.emailError=true;
-        this.emailErrorMessage=resp.error;
-      });
+        .then((resp:any)=> {
+          this.emailMessage='';
+          this.emailError=true;
+          this.emailMessage='Email generated: '+this.user.email;
+          //console.log(resp)
+       })
+        .catch(resp=>{
+          console.warn(resp.error)
+          this.user.firstName='';
+          this.user.lastName='';
+          this.user.email='';
+          this.forma.reset();
+          this.emailError=true;
+          this.emailMessage=resp.error;
+        });
       }
+      this.loading=false;
+      this.forma.controls['firstName'].enable();
+      this.forma.controls['lastName'].enable();
       console.log(this.user);
 
 
     }
   }
-
-
   get invalidName(){
     return this.forma.get('firstName')?.invalid&&this.forma.get('firstName')?.touched;
   }
@@ -107,21 +100,3 @@ export class ProfileSettingsComponent implements OnInit {
     return this.forma.get('lastName')?.invalid&&this.forma.get('lastName')?.touched;
   }
 }
-
-
-
-
-
-//
-// .then(resp=> {
-//   this.error=false;
-//   this.errorMessage=''
-//   console.log(resp)
-
-
-// })
-// .catch(resp=>{
-//   console.warn(resp.error)
-//   this.error=true;
-//   this.errorMessage=resp.error;
-// });

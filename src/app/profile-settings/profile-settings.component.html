@@ -1,33 +1,26 @@
 <div>
   <h1>{{title}}</h1>
-  <div>
-  <p>User: <small>{{user.firstName}}</small></p>
-  </div>
+    <div>
+      <p>User: <small>{{user.firstName}}</small></p>
+    </div>
+
 
   <form autocomplete="off" [formGroup]="forma" (submit)="saveProfile()">
     <div>
       <label>First Name:</label>
       <input type="text" formControlName="firstName" [class.is-invalid]="invalidName"/><small *ngIf="invalidName" >
-        Enter at least 1 letter
+        Enter at least 1 character
        </small> <br>
       <label>Last Name:</label>
-      <input type="text" formControlName="lastName" [class.is-invalid]="invalidLastName"/> <small *ngIf="invalidLastName" >
-        Enter at least 1 letter
+      <input type="text" formControlName="lastName" [class.is-invalid]="invalidLastName"/> <small *ngIf="invalidLastName">
+        Enter at least 1 character
        </small><br>
       <button type="submit"  [disabled]="loading">Save</button>
     </div>
     <p *ngIf="loading">Loading profile...</p>
     <p *ngIf="!loading">Saving profile...</p>
     <p *ngIf="error">Error! {{this.errorMessage}}</p>
-    <p *ngIf="emailError">! {{this.emailErrorMessage}}</p>
+    <p *ngIf="emailError">{{this.emailMessage}}</p>
   </form>
  </div>
 
-
-<!--
- <label>Last Name:</label>
- <input type="text" [disabled]="loading"/> <br>
- <label>Username Name:</label>
- <input type="text" [disabled]="loading"/> <br>
- <label>Age Name:</label> <br>
- <input type="text" [disabled]="loading"/> -->
